@@ -4,6 +4,8 @@ import AboutPage from "./pages/AboutPage";
 import MenuPage from "./pages/MenuPage";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
+import CartPage from "./pages/CartPage";
+import OrderPage from "./pages/OrderPage"
 
 import "./App.css";
 
@@ -17,6 +19,8 @@ function App() {
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/order-success" element={<OrderPage />} />
         </Routes>
       </Router>
     </>

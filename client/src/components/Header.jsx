@@ -31,7 +31,7 @@ function Header() {
                 <a href="contact">Contact</a>
               </li>
               <li>
-                <a href="checkout">
+                <a href="cart">
                   <FontAwesomeIcon
                     icon={faCartShopping}
                     className={styles.cartIcon}

@@ -1,15 +1,19 @@
 import styles from "../../styles/Hero.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
   const [bestSellers, setBestSellers] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/product/") // Adjust endpoint if necessary
+      .get("http://localhost:5000/api/product/")
       .then((response) => {
-        // Filtering only Best Sellers
         const bestSellerItems = response.data.filter((item) =>
           item.category.includes("Best Sellers")
         );
@@ -47,7 +51,7 @@ function Hero() {
       <h2 className={styles.bestSellerTitle}>Best Sellers</h2>
       <div className={styles.bestSellerGrid}>
         {bestSellers.map((food) => (
-          <FoodItem key={food._id} food={food} />
+          <FoodItem key={food._id} food={food} dispatch={dispatch} />
         ))}
       </div>
     </div>
@@ -55,15 +59,15 @@ function Hero() {
 }
 
 // FoodItem Component
-function FoodItem({ food }) {
+function FoodItem({ food, dispatch }) {
   return (
     <div className={styles.foodItem}>
       <h3>{food.name}</h3>
       <img src={food.image || "https://placehold.co/150"} alt={food.name} />
       <p className={styles.desc}>{food.description}</p>
       <b>₹{food.price}</b>
-      <br></br>
-      <button>Add to Cart</button>
+      <br />
+      <button onClick={() => dispatch(addToCart(food))}>Add to Cart</button>
     </div>
   );
 }

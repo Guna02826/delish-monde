@@ -1,6 +1,8 @@
 import styles from "../../styles/Menu.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 
 function Menu() {
   const [foods, setFoods] = useState([]);
@@ -21,7 +23,6 @@ function Menu() {
     fetchFoods();
   }, []);
 
-  // Function to categorize foods
   const categorizeFoods = (foods) => {
     const categories = {};
     const bestSellers = [];
@@ -61,8 +62,9 @@ function Menu() {
   );
 }
 
-// FoodItem Component
 function FoodItem({ food }) {
+  const dispatch = useDispatch();
+
   return (
     <div className={styles.food}>
       <h3>{food.name}</h3>
@@ -70,7 +72,12 @@ function FoodItem({ food }) {
       <p className={styles.desc}>{food.description}</p>
       <b>₹{food.price}</b>
       <br />
-      <button className={styles.addToCart}>Add to Cart</button>
+      <button
+        className={styles.addToCart}
+        onClick={() => dispatch(addToCart(food))}
+      >
+        Add to Cart
+      </button>
     </div>
   );
 }
